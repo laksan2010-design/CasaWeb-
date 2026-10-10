@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuidado Casa by KC | Luxury Boutique Destination | Horana, Sri Lanka</title>
+    <meta name="description"
+        content="Cuidado Casa by KC is a welcoming hospitality destination in Horana, Sri Lanka, offering thoughtful care, comfortable rooms, Sri Lankan Soul Journey experiences, and dining.">
+    <meta name="keywords"
+        content="Cuidado Casa by KC, Horana hotel, Sri Lanka boutique stay, Sri Lankan Soul Journey, Horana resort, Sri Lanka cultural tour">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Playfair+Display:ital,wght@0,400..800;1,400..800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome 6 Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Leaflet.js Map CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        forest: {
+                            DEFAULT: '#0A192F', // Deep Midnight Blue
+                            dark: '#060D1A',    // Obsidian Navy
+                            light: '#112240',   // Rich Slate Navy
+                            deep: '#030712'
+                        },
+                        gold: {
+                            DEFAULT: '#00A3E0', // Electric Ocean Blue (Logo Hand)
+                            dark: '#0284C7',    // Deep Sky Blue
+                            light: '#38BDF8',   // Bright Cyan
+                            soft: '#99F6E4'     // Soft Mint Tint
+                        },
+                        mint: {
+                            DEFAULT: '#2DD4BF', // Seafoam Mint Green (Logo Family)
+                            dark: '#0D9488',
+                            light: '#50E3C2'
+                        },
+                        sand: '#F0F7FF',
+                        ivory: '#F8FAFC',
+                        charcoal: '#0F172A',
+                        slateMuted: '#475569'
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        accent: ['"Cormorant Garamond"', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom External CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body
+    class="bg-ivory text-charcoal font-sans antialiased selection:bg-gold selection:text-forest-dark overflow-x-hidden">
+
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div
+        class="bg-forest-dark text-gold-soft py-2 px-4 text-xs font-medium border-b border-gold/20 flex flex-wrap justify-between items-center z-50 relative">
+        <div class="container mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center gap-4">
+                <span class="inline-flex items-center gap-1.5"><i class="fa-solid fa-heart text-gold"></i> Cuidado Casa
+                    by KC — Best Care Always for You</span>
+                <span class="hidden md:inline-flex items-center gap-1.5 text-stone-300"><i
+                        class="fa-solid fa-location-dot text-gold"></i> Horana, Sri Lanka</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <!-- Currency Selector -->
+                <div class="flex items-center gap-1">
+                    <i class="fa-solid fa-coins text-gold text-xs"></i>
+                    <select id="currencySelect" onchange="changeCurrency(this.value)"
+                        class="bg-forest text-gold-soft text-xs py-0.5 px-2 rounded border border-gold/30 outline-none cursor-pointer">
+                        <option value="LKR">LKR (Rs)</option>
+                        <option value="USD">USD ($)</option>
+                        <option value="EUR">EUR (€)</option>
+                        <option value="GBP">GBP (£)</option>
+                    </select>
+                </div>
+
+                <!-- Ambient Audio Generator Toggle -->
+                <button id="audioBtn" onclick="toggleAmbientAudio()"
+                    class="flex items-center gap-2 bg-forest/80 hover:bg-forest text-gold px-2.5 py-0.5 rounded border border-gold/30 text-xs transition duration-300">
+                    <i id="audioIcon" class="fa-solid fa-volume-xmark"></i>
+                    <span>Nature Ambience</span>
+                    <div id="audioBars" class="hidden flex items-end gap-0.5 h-4">
+                        <span class="w-0.5 bg-gold bar-1"></span>
+                        <span class="w-0.5 bg-gold bar-2"></span>
+                        <span class="w-0.5 bg-gold bar-3"></span>
+                    </div>
+                </button>
+
+                <a href="tel:+94773317871"
+                    class="hidden sm:inline-flex items-center gap-1 hover:text-gold transition"><i
+                        class="fa-solid fa-phone text-xs"></i> 077 331 7871</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVIGATION BAR -->
+    <header id="mainHeader" class="sticky top-0 z-40 transition-all duration-300 glass-nav">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <img src="images/logo.png" alt="Cuidado Casa by KC Logo"
+                    class="h-11 w-11 object-contain rounded-full border border-gold/40 p-0.5 bg-black/40 brand-logo-img">
+                <div>
+                    <span
+                        class="font-serif text-xl sm:text-2xl tracking-wider text-ivory font-bold block leading-none">CUIDADO
+                        CASA</span>
+                    <span class="text-[10px] tracking-[0.25em] text-gold uppercase block mt-1">By KC • Horana, Sri
+                        Lanka</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-stone-200">
+                <a href="#hero"
+                    class="hover:text-gold transition py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gold hover:after:w-full after:transition-all">Home</a>
+                <a href="#about"
+                    class="hover:text-gold transition py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gold hover:after:w-full after:transition-all">About
+                    Us</a>
+                <a href="#rooms"
+                    class="hover:text-gold transition py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gold hover:after:w-full after:transition-all">Rooms
+                    & Rates</a>
+                <a href="#soul-journey"
+                    class="hover:text-gold transition py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gold hover:after:w-full after:transition-all">Soul
+                    Journey Experience</a>
+                <a href="#facilities"
+                    class="hover:text-gold transition py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gold hover:after:w-full after:transition-all">Facilities</a>
+                <a href="#contact"
+                    class="hover:text-gold transition py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gold hover:after:w-full after:transition-all">Contact
+                    Us</a>
+            </nav>
+
+            <!-- Book / WhatsApp CTA -->
+            <div class="flex items-center gap-3">
+                <a href="https://wa.me/94773317871?text=Hi%20Cuidado%20Casa%20by%20KC,%20I%20would%20like%20to%20enquire%20about%20room%20availability."
+                    target="_blank" rel="noopener noreferrer"
+                    class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-semibold text-xs sm:text-sm px-5 py-2.5 rounded-full shadow-lg transition duration-300 transform hover:-translate-y-0.5 flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span>Enquire via WhatsApp</span>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" onclick="toggleMobileMenu()"
+                    class="lg:hidden text-ivory hover:text-gold p-2 rounded-lg focus:outline-none"
+                    aria-label="Toggle menu">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MOBILE MENU DRAWER -->
+    <div id="mobileDrawer"
+        class="fixed inset-0 bg-forest-dark/95 backdrop-blur-xl z-50 transform translate-x-full transition-transform duration-300 lg:hidden flex flex-col justify-between p-6">
+        <div>
+            <div class="flex items-center justify-between pb-6 border-b border-gold/20">
+                <div class="flex items-center gap-3">
+                    <img src="images/logo.png" alt="Cuidado Casa by KC Logo"
+                        class="h-9 w-9 object-contain rounded-full border border-gold/40 p-0.5 bg-black/40">
+                    <div>
+                        <span class="font-serif text-lg font-bold text-ivory block leading-none">CUIDADO CASA</span>
+                        <span class="text-[9px] tracking-widest text-gold uppercase block mt-0.5">By KC</span>
+                    </div>
+                </div>
+                <button onclick="toggleMobileMenu()" class="text-stone-300 hover:text-gold p-2">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
+            <nav class="flex flex-col gap-4 mt-8 text-lg font-serif">
+                <a href="#hero" onclick="toggleMobileMenu()"
+                    class="text-stone-200 hover:text-gold py-2 border-b border-white/5">Home</a>
+                <a href="#about" onclick="toggleMobileMenu()"
+                    class="text-stone-200 hover:text-gold py-2 border-b border-white/5">About Us</a>
+                <a href="#rooms" onclick="toggleMobileMenu()"
+                    class="text-stone-200 hover:text-gold py-2 border-b border-white/5">Rooms & Rates</a>
+                <a href="#soul-journey" onclick="toggleMobileMenu()"
+                    class="text-stone-200 hover:text-gold py-2 border-b border-white/5">Soul Journey Package</a>
+                <a href="#facilities" onclick="toggleMobileMenu()"
+                    class="text-stone-200 hover:text-gold py-2 border-b border-white/5">Guest Facilities</a>
+                <a href="#contact" onclick="toggleMobileMenu()"
+                    class="text-stone-200 hover:text-gold py-2 border-b border-white/5">Contact Us</a>
+            </nav>
+        </div>
+        <div class="pt-6 border-t border-gold/20">
+            <a href="https://wa.me/94773317871" target="_blank"
+                class="w-full bg-emerald-600 text-white font-bold py-3 rounded-full text-center shadow-lg block">
+                <i class="fa-brands fa-whatsapp mr-1"></i> WhatsApp Enquiry
+            </a>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section id="hero"
+        class="relative min-h-[90vh] lg:min-h-screen flex items-center justify-center bg-forest-dark overflow-hidden">
+        <!-- Hero Background Image Slider -->
+        <div class="absolute inset-0 z-0">
+            <img id="heroImage" src="images/hero.jpg" onerror="this.src='images/hero.png'"
+                alt="Cuidado Casa by KC Horana"
+                class="w-full h-full object-cover transition-all duration-1000 transform scale-105">
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
+
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-16 pb-28 text-center text-ivory">
+            <!-- Badge -->
+            <div
+                class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-forest/80 border border-gold/40 text-gold-light text-xs sm:text-sm font-medium tracking-wide mb-6 animate-float">
+                <i class="fa-solid fa-heart text-gold"></i>
+                <span>Best Care Always for You • Horana, Sri Lanka</span>
+            </div>
+
+            <!-- Main Heading -->
+            <h1
+                class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight max-w-4xl mx-auto leading-tight text-ivory drop-shadow-md">
+                Cuidado Casa by kc <br class="hidden sm:inline">in <span
+                    class="text-gold-gradient italic font-normal">Sri Lanka</span>
+            </h1>
+
+            <!-- Subheading -->
+            <p class="mt-6 text-base sm:text-xl text-stone-200 max-w-3xl mx-auto font-light leading-relaxed">
+                A welcoming hospitality destination in Horana, Sri Lanka, where thoughtful care, nature, dining, and
+                memorable cultural experiences come together.
+            </p>
+
+            <!-- Hero Action Buttons -->
+            <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#rooms"
+                    class="w-full sm:w-auto bg-gradient-to-r from-gold to-gold-dark hover:from-gold-light hover:to-gold text-forest-dark font-bold px-8 py-3.5 rounded-full shadow-xl transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                    <span>Explore Rooms & Rates</span>
+                    <i class="fa-solid fa-bed text-xs"></i>
+                </a>
+                <a href="#soul-journey"
+                    class="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-ivory border border-white/30 backdrop-blur-md px-7 py-3.5 rounded-full transition flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-compass text-gold text-lg"></i>
+                    <span>Soul Journey Package</span>
+                </a>
+            </div>
+
+            <!-- EMBEDDED QUICK AVAILABILITY / ENQUIRY WIDGET -->
+            <div
+                class="mt-12 sm:mt-16 max-w-5xl mx-auto glass-dark rounded-2xl sm:rounded-full p-4 sm:p-3 shadow-2xl border border-gold/30 text-left">
+                <form id="quickBookingForm" onsubmit="event.preventDefault(); handleQuickSearch()"
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 items-center">
+
+                    <!-- Check-in Date -->
+                    <div
+                        class="px-4 py-2 bg-forest/60 sm:bg-transparent rounded-xl sm:rounded-none border-b sm:border-b-0 sm:border-r border-gold/20">
+                        <label
+                            class="block text-[10px] tracking-wider text-gold uppercase font-semibold">Check-In</label>
+                        <div class="flex items-center gap-2 mt-1">
+                            <i class="fa-regular fa-calendar-check text-gold text-sm"></i>
+                            <input type="date" id="quickCheckIn"
+                                class="bg-transparent text-ivory text-sm font-medium focus:outline-none w-full cursor-pointer"
+                                required>
+                        </div>
+                    </div>
+
+                    <!-- Check-out Date -->
+                    <div
+                        class="px-4 py-2 bg-forest/60 sm:bg-transparent rounded-xl sm:rounded-none border-b sm:border-b-0 sm:border-r border-gold/20">
+                        <label
+                            class="block text-[10px] tracking-wider text-gold uppercase font-semibold">Check-Out</label>
+                        <div class="flex items-center gap-2 mt-1">
+                            <i class="fa-regular fa-calendar-xmark text-gold text-sm"></i>
+                            <input type="date" id="quickCheckOut"
+                                class="bg-transparent text-ivory text-sm font-medium focus:outline-none w-full cursor-pointer"
+                                required>
+                        </div>
+                    </div>
+
+                    <!-- Room Preference -->
+                    <div
+                        class="px-4 py-2 bg-forest/60 sm:bg-transparent rounded-xl sm:rounded-none border-b sm:border-b-0 lg:border-r border-gold/20">
+                        <label class="block text-[10px] tracking-wider text-gold uppercase font-semibold">Room
+                            Preference</label>
+                        <div class="flex items-center gap-2 mt-1">
+                            <i class="fa-solid fa-bed text-gold text-sm"></i>
+                            <select id="quickGuests"
+                                class="bg-transparent text-ivory text-sm font-medium focus:outline-none w-full cursor-pointer">
+                                <option value="Room 1 — Deluxe King Room" class="bg-forest-dark text-ivory">Room 1 —
+                                    Deluxe King (Balcony & View)</option>
+                                <option value="Room 2 — Standard Room" class="bg-forest-dark text-ivory">Room 2 —
+                                    Standard Room (2 Double Beds)</option>
+                                <option value="Room 3 — Family Room" class="bg-forest-dark text-ivory">Room 3 — Family
+                                    Room (Pool View)</option>
+                                <option value="Room 4 — Family Room" class="bg-forest-dark text-ivory">Room 4 — Family
+                                    Room (Pool/Garden View)</option>
+                                <option value="The Sri Lankan Soul Journey Package" class="bg-forest-dark text-ivory">
+                                    Soul Journey 4-Day Cultural Package</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="p-1">
+                        <button type="submit"
+                            class="w-full bg-gold hover:bg-gold-light text-forest-dark font-bold py-3.5 px-6 rounded-xl sm:rounded-full transition duration-300 flex items-center justify-center gap-2 shadow-lg shadow-gold/20">
+                            <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                            <span>Check Availability</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+        <!-- Scroll Indicator -->
+        <a href="#about"
+            class="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-gold/80 hover:text-gold flex flex-col items-center gap-1 text-xs tracking-widest uppercase transition">
+            <span>Scroll Down</span>
+            <i class="fa-solid fa-chevron-down animate-bounce text-sm"></i>
+        </a>
+    </section>
+
+    <!-- KEY HIGHLIGHTS BAR -->
+    <section class="bg-forest py-8 border-t border-b border-gold/20 text-ivory">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="p-3 border-r border-gold/10 last:border-0">
+                    <span class="font-serif text-2xl sm:text-3xl font-bold text-gold block">4 Rooms</span>
+                    <span class="text-[11px] text-stone-300 tracking-wider uppercase mt-1 block">Private & Shared
+                        Stays</span>
+                </div>
+                <div class="p-3 border-r border-gold/10 last:border-0">
+                    <span class="font-serif text-2xl sm:text-3xl font-bold text-gold block">LKR 15,000+</span>
+                    <span class="text-[11px] text-stone-300 tracking-wider uppercase mt-1 block">Rates Inc.
+                        Breakfast</span>
+                </div>
+                <div class="p-3 border-r border-gold/10 last:border-0">
+                    <span class="font-serif text-2xl sm:text-3xl font-bold text-gold block">4-Day Package</span>
+                    <span class="text-[11px] text-stone-300 tracking-wider uppercase mt-1 block">Sri Lankan Soul
+                        Journey</span>
+                </div>
+                <div class="p-3">
+                    <span class="font-serif text-2xl sm:text-3xl font-bold text-gold block">Horana</span>
+                    <span class="text-[11px] text-stone-300 tracking-wider uppercase mt-1 block">Western Province, Sri
+                        Lanka</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT US SECTION -->
+    <section id="about" class="py-20 lg:py-28 bg-ivory relative overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+                <!-- Left Image Composition -->
+                <div class="relative">
+                    <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+                        <img src="images/nature.png"
+                            onerror="this.src='https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80'"
+                            alt="Cuidado Casa by KC Nature"
+                            class="w-full h-[450px] sm:h-[520px] object-cover hover:scale-105 transition duration-700">
+                    </div>
+                    <!-- Badge -->
+                    <div
+                        class="absolute -bottom-6 -right-4 sm:-bottom-8 sm:-right-6 z-20 glass-card p-5 rounded-2xl shadow-xl max-w-xs border border-gold/30">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-12 h-12 rounded-full bg-forest text-gold flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-serif font-bold text-forest text-sm">Genuine Care & Comfort</h4>
+                                <p class="text-xs text-slateMuted mt-0.5">Best Care Always for You — Cuidado Casa by KC
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Content -->
+                <div>
+                    <div
+                        class="inline-flex items-center gap-2 text-forest-light text-xs font-bold tracking-widest uppercase mb-3">
+                        <span class="w-8 h-0.5 bg-gold"></span>
+                        <span>About Cuidado Casa by KC</span>
+                    </div>
+
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-forest-dark leading-tight">
+                        Thoughtful Care, Nature & Memorable Experiences
+                    </h2>
+
+                    <p class="mt-6 text-slateMuted leading-relaxed text-base">
+                        <strong class="text-forest font-semibold">Cuidado Casa by KC</strong> is a hospitality
+                        destination in Horana, Sri Lanka, built around our belief that every guest deserves genuine
+                        care, comfort, and a warm welcome.
+                    </p>
+
+                    <p class="mt-4 text-slateMuted leading-relaxed text-base">
+                        Our vision is to bring together accommodation, dining, nature, and authentic Sri Lankan
+                        experiences in one welcoming place. With a focus on personal service and meaningful experiences,
+                        we aim to create a place where guests can relax, connect with local culture, and make lasting
+                        memories.
+                    </p>
+
+                    <!-- Feature Bullets -->
+                    <div class="mt-8 space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="w-6 h-6 rounded-full bg-forest/10 text-gold flex items-center justify-center shrink-0 mt-1">
+                                <i class="fa-solid fa-check text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-forest-dark text-sm">Warm Personal Hospitality</h4>
+                                <p class="text-xs text-slateMuted">Tailored attention for solo travelers, couples,
+                                    families, and culture enthusiasts.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="w-6 h-6 rounded-full bg-forest/10 text-gold flex items-center justify-center shrink-0 mt-1">
+                                <i class="fa-solid fa-check text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-forest-dark text-sm">Serene Natural Setting in Horana</h4>
+                                <p class="text-xs text-slateMuted">Comfortable rooms with greenery, balcony, and
+                                    pool/garden views.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div
+                                class="w-6 h-6 rounded-full bg-forest/10 text-gold flex items-center justify-center shrink-0 mt-1">
+                                <i class="fa-solid fa-check text-xs"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-forest-dark text-sm">Cultural Experience Packages</h4>
+                                <p class="text-xs text-slateMuted">Home-cooked meals, cooking lessons, Sinhala phrases,
+                                    craft workshops, and local tours.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-10 flex items-center gap-6">
+                        <a href="#rooms"
+                            class="bg-forest hover:bg-forest-light text-ivory font-semibold px-7 py-3 rounded-full transition shadow-lg flex items-center gap-2 text-sm">
+                            <span>View Rooms & Rates</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ROOMS & RATES SECTION (3 ROOM CATEGORIES ACCORDING TO PDF) -->
+    <section id="rooms" class="py-20 lg:py-28 bg-sand/60 relative">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+
+            <!-- Section Header -->
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <div
+                    class="inline-flex items-center gap-2 text-forest-light text-xs font-bold tracking-widest uppercase mb-3">
+                    <span class="w-6 h-0.5 bg-gold"></span>
+                    <span>Accommodations & Rates</span>
+                    <span class="w-6 h-0.5 bg-gold"></span>
+                </div>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-forest-dark">
+                    Room Descriptions & Proposed Rates
+                </h2>
+                <p class="mt-4 text-slateMuted text-base">
+                    Rates are per room per night. Standard rates include breakfast for two guests; Room 1's
+                    single-occupancy rate includes breakfast for one guest.
+                </p>
+            </div>
+
+            <!-- Room Grid (All 4 PDF Rooms Individually Featured) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <!-- ROOM 1: Deluxe King Room with Balcony & View -->
+                <div
+                    class="bg-white rounded-2xl overflow-hidden shadow-xl border border-gold/20 flex flex-col group transition duration-500 hover:-translate-y-2">
+                    <div class="relative overflow-hidden h-56">
+                        <img src="images/room1.jpg" alt="Room 1 — Deluxe King Room"
+                            class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div
+                            class="absolute top-3 left-3 bg-gold text-forest-dark text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow">
+                            Room 1 — Deluxe
+                        </div>
+                        <div
+                            class="absolute bottom-3 right-3 bg-forest-dark/80 backdrop-blur-md text-ivory text-[11px] px-2.5 py-0.5 rounded-lg border border-gold/30">
+                            1 King Bed • Balcony
+                        </div>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-serif text-xl font-bold text-forest-dark mb-1">Room 1 — Deluxe King Room
+                            </h3>
+                            <p class="text-[11px] text-emerald-700 font-semibold mb-2">Solo travellers & couples (1–2
+                                guests)</p>
+
+                            <p class="text-xs text-slateMuted leading-relaxed mb-3">
+                                Comfortable deluxe room with 1 king bed, private bathroom, and private balcony with view
+                                of surrounding greenery.
+                            </p>
+
+                            <!-- Rate Table -->
+                            <div class="bg-sand/70 rounded-xl p-2.5 border border-gold/20 mb-3 text-[11px]">
+                                <div
+                                    class="font-semibold text-forest mb-1.5 border-b border-gold/20 pb-1 flex justify-between">
+                                    <span>Occupancy</span>
+                                    <span>Fan / A/C Rate</span>
+                                </div>
+                                <div class="flex justify-between py-1 border-b border-stone-200">
+                                    <span>1 Guest (Bkfst for 1):</span>
+                                    <span class="font-bold text-forest">15k / 17k LKR</span>
+                                </div>
+                                <div class="flex justify-between py-1">
+                                    <span>2 Guests (Bkfst for 2):</span>
+                                    <span class="font-bold text-forest">18k / 22k LKR</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 mt-2">
+                            <button onclick="openRoomDetails('room1')"
+                                class="flex-1 bg-stone-100 hover:bg-stone-200 text-forest-dark font-semibold py-2 rounded-xl text-xs transition">
+                                Details
+                            </button>
+                            <a href="https://wa.me/94773317871?text=Hi%20Cuidado%20Casa%20by%20KC,%20I%20want%20to%20enquire%20about%20Room%201%20(Deluxe%20King%20Room)."
+                                target="_blank"
+                                class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-xl text-xs text-center transition shadow">
+                                <i class="fa-brands fa-whatsapp"></i> Book
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROOM 2: Standard Room -->
+                <div
+                    class="bg-white rounded-2xl overflow-hidden shadow-xl border border-gold/20 flex flex-col group transition duration-500 hover:-translate-y-2">
+                    <div class="relative overflow-hidden h-56">
+                        <img src="images/room2.jpg" alt="Room 2 — Standard Room"
+                            class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div
+                            class="absolute top-3 left-3 bg-forest text-gold text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow">
+                            Room 2 — Standard
+                        </div>
+                        <div
+                            class="absolute bottom-3 right-3 bg-forest-dark/80 backdrop-blur-md text-ivory text-[11px] px-2.5 py-0.5 rounded-lg border border-gold/30">
+                            2 Double Beds
+                        </div>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-serif text-xl font-bold text-forest-dark mb-1">Room 2 — Standard Room</h3>
+                            <p class="text-[11px] text-emerald-700 font-semibold mb-2">Solo travellers & couples (1–2
+                                guests)</p>
+
+                            <p class="text-xs text-slateMuted leading-relaxed mb-3">
+                                Practical, welcoming room with 2 double beds and private bathroom. Offers a comfortable
+                                stay.
+                            </p>
+
+                            <!-- Rate Table -->
+                            <div class="bg-sand/70 rounded-xl p-2.5 border border-gold/20 mb-3 text-[11px]">
+                                <div
+                                    class="font-semibold text-forest mb-1.5 border-b border-gold/20 pb-1 flex justify-between">
+                                    <span>Occupancy</span>
+                                    <span>Fan / A/C Rate</span>
+                                </div>
+                                <div class="flex justify-between py-1">
+                                    <span>2 Guests (Bkfst for 2):</span>
+                                    <span class="font-bold text-forest">15k / 18k LKR</span>
+                                </div>
+                                <div class="text-[10px] text-slateMuted mt-1 italic">*Additional bed on request</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 mt-2">
+                            <button onclick="openRoomDetails('room2')"
+                                class="flex-1 bg-stone-100 hover:bg-stone-200 text-forest-dark font-semibold py-2 rounded-xl text-xs transition">
+                                Details
+                            </button>
+                            <a href="https://wa.me/94773317871?text=Hi%20Cuidado%20Casa%20by%20KC,%20I%20want%20to%20enquire%20about%20Room%202%20(Standard%20Room)."
+                                target="_blank"
+                                class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-xl text-xs text-center transition shadow">
+                                <i class="fa-brands fa-whatsapp"></i> Book
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROOM 3: Family Room with Balcony & Pool/Garden View -->
+                <div
+                    class="bg-white rounded-2xl overflow-hidden shadow-xl border border-gold/20 flex flex-col group transition duration-500 hover:-translate-y-2">
+                    <div class="relative overflow-hidden h-56">
+                        <img src="images/room3.jpg" alt="Room 3 — Family Room"
+                            class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div
+                            class="absolute top-3 left-3 bg-teal-800 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow">
+                            Room 3 — Family
+                        </div>
+                        <div
+                            class="absolute bottom-3 right-3 bg-forest-dark/80 backdrop-blur-md text-ivory text-[11px] px-2.5 py-0.5 rounded-lg border border-gold/30">
+                            2 Double Beds • Pool View
+                        </div>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-serif text-xl font-bold text-forest-dark mb-1">Room 3 — Family Room</h3>
+                            <p class="text-[11px] text-emerald-700 font-semibold mb-2">Families, couples & friends (Up
+                                to 3 guests)</p>
+
+                            <p class="text-xs text-slateMuted leading-relaxed mb-3">
+                                Family-style room with 2 double beds, private bathroom and balcony overlooking pool or
+                                garden.
+                            </p>
+
+                            <!-- Rate Table -->
+                            <div class="bg-sand/70 rounded-xl p-2.5 border border-gold/20 mb-3 text-[11px]">
+                                <div
+                                    class="font-semibold text-forest mb-1.5 border-b border-gold/20 pb-1 flex justify-between">
+                                    <span>Occupancy</span>
+                                    <span>Fan / A/C Rate</span>
+                                </div>
+                                <div class="flex justify-between py-1 border-b border-stone-200">
+                                    <span>2 Guests (Bkfst for 2):</span>
+                                    <span class="font-bold text-forest">20k / 24k LKR</span>
+                                </div>
+                                <div class="flex justify-between py-1">
+                                    <span>3 Guests (Bkfst for 3):</span>
+                                    <span class="font-bold text-forest">23k / 27k LKR</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 mt-2">
+                            <button onclick="openRoomDetails('room3')"
+                                class="flex-1 bg-stone-100 hover:bg-stone-200 text-forest-dark font-semibold py-2 rounded-xl text-xs transition">
+                                Details
+                            </button>
+                            <a href="https://wa.me/94773317871?text=Hi%20Cuidado%20Casa%20by%20KC,%20I%20want%20to%20enquire%20about%20Room%203%20(Family%20Room)."
+                                target="_blank"
+                                class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-xl text-xs text-center transition shadow">
+                                <i class="fa-brands fa-whatsapp"></i> Book
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROOM 4: Family Room with Balcony & Pool/Garden View -->
+                <div
+                    class="bg-white rounded-2xl overflow-hidden shadow-xl border border-gold/20 flex flex-col group transition duration-500 hover:-translate-y-2">
+                    <div class="relative overflow-hidden h-56">
+                        <img src="images/room4.jpg" alt="Room 4 — Family Room"
+                            class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div
+                            class="absolute top-3 left-3 bg-cyan-800 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full shadow">
+                            Room 4 — Family
+                        </div>
+                        <div
+                            class="absolute bottom-3 right-3 bg-forest-dark/80 backdrop-blur-md text-ivory text-[11px] px-2.5 py-0.5 rounded-lg border border-gold/30">
+                            2 Double Beds • Pool/Garden
+                        </div>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-serif text-xl font-bold text-forest-dark mb-1">Room 4 — Family Room</h3>
+                            <p class="text-[11px] text-emerald-700 font-semibold mb-2">Families, couples & friends (Up
+                                to 3 guests)</p>
+
+                            <p class="text-xs text-slateMuted leading-relaxed mb-3">
+                                Welcoming family room with 2 double beds, private bathroom and private balcony with
+                                pool/garden view.
+                            </p>
+
+                            <!-- Rate Table -->
+                            <div class="bg-sand/70 rounded-xl p-2.5 border border-gold/20 mb-3 text-[11px]">
+                                <div
+                                    class="font-semibold text-forest mb-1.5 border-b border-gold/20 pb-1 flex justify-between">
+                                    <span>Occupancy</span>
+                                    <span>Fan / A/C Rate</span>
+                                </div>
+                                <div class="flex justify-between py-1 border-b border-stone-200">
+                                    <span>2 Guests (Bkfst for 2):</span>
+                                    <span class="font-bold text-forest">22k / 25k LKR</span>
+                                </div>
+                                <div class="flex justify-between py-1">
+                                    <span>3 Guests (Bkfst for 3):</span>
+                                    <span class="font-bold text-forest">25k / 28k LKR</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 mt-2">
+                            <button onclick="openRoomDetails('room4')"
+                                class="flex-1 bg-stone-100 hover:bg-stone-200 text-forest-dark font-semibold py-2 rounded-xl text-xs transition">
+                                Details
+                            </button>
+                            <a href="https://wa.me/94773317871?text=Hi%20Cuidado%20Casa%20by%20KC,%20I%20want%20to%20enquire%20about%20Room%204%20(Family%20Room)."
+                                target="_blank"
+                                class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 rounded-xl text-xs text-center transition shadow">
+                                <i class="fa-brands fa-whatsapp"></i> Book
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- THE SRI LANKAN SOUL JOURNEY SECTION (PDF #2 PACKAGE) -->
+    <section id="soul-journey" class="py-20 lg:py-28 bg-forest-dark text-ivory relative overflow-hidden">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+            <div class="text-center max-w-4xl mx-auto mb-16">
+                <div class="inline-flex items-center gap-2 text-gold text-xs font-bold tracking-widest uppercase mb-3">
+                    <span class="w-6 h-0.5 bg-gold"></span>
+                    <span>Exclusive Cultural Package</span>
+                    <span class="w-6 h-0.5 bg-gold"></span>
+                </div>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-ivory">
+                    THE SRI LANKAN SOUL JOURNEY
+                </h2>
+                <p class="text-gold font-serif text-lg italic mt-2">
+                    “Discover our island. Share your culture. Leave a little piece of yourself behind.”
+                </p>
+                <p class="mt-4 text-stone-300 text-sm leading-relaxed max-w-3xl mx-auto">
+                    A four-day, three-night cultural experience based at Cuidado Casa by KC in Horana. Enjoy Sri Lankan
+                    food, learn simple Sinhala phrases, share traditions, explore nature, join a cooking lesson, and
+                    create a coconut-shell keepsake.
+                </p>
+
+                <!-- Pricing Banner -->
+                <div
+                    class="mt-8 inline-flex flex-wrap justify-center items-center gap-6 glass-dark px-6 py-3 rounded-2xl border border-gold/30 text-xs">
+                    <div><span class="text-stone-400">Duration:</span> <strong class="text-gold">4 Days / 3
+                            Nights</strong></div>
+                    <div><span class="text-stone-400">Shared Room Price:</span> <strong class="text-gold">LKR 45,000 /
+                            person</strong></div>
+                    <div><span class="text-stone-400">Private Room Option:</span> <strong class="text-gold">LKR 60,000 –
+                            65,000 / person</strong></div>
+                    <div><span class="text-stone-400">Group Size:</span> <strong class="text-gold">Max 8 Guests</strong>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proposed Itinerary Accordion / Grid (Days 1 to 4) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <!-- DAY 1 -->
+                <div
+                    class="glass-dark rounded-2xl overflow-hidden border border-gold/20 flex flex-col transition hover:border-gold/50">
+                    <div class="relative h-48 sm:h-56 overflow-hidden">
+                        <img src="images/cultural_welcome.jpg" alt="Day 1 — Welcome & King Coconut"
+                            class="w-full h-full object-cover transition duration-700 hover:scale-105">
+                        <div
+                            class="absolute top-3 left-3 bg-forest-dark/80 backdrop-blur-md text-gold text-xs font-bold px-3 py-1 rounded-full border border-gold/40">
+                            Day 1 Experience
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-gold text-forest-dark font-bold flex items-center justify-center font-serif shrink-0">
+                                    D1</div>
+                                <div>
+                                    <h4 class="font-serif font-bold text-ivory text-lg">DAY 1 — Arrival & Warm Welcome
+                                    </h4>
+                                    <span class="text-xs text-gold font-medium">Coconut Welcome & Karaoke Dinner</span>
+                                </div>
+                            </div>
+                            <ul class="space-y-2 text-xs text-stone-300">
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-0.5"></i>
+                                    Welcome guests with fresh King Coconut</li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-0.5"></i>
+                                    Check-in & short introduction to Cuidado Casa</li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-0.5"></i>
+                                    Beginner-friendly Sinhala lesson with everyday phrases</li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-0.5"></i>
+                                    Authentic Sri Lankan welcome dinner</li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-0.5"></i>
+                                    Relaxed welcome evening with karaoke & social time</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DAY 2 -->
+                <div
+                    class="glass-dark rounded-2xl overflow-hidden border border-gold/20 flex flex-col transition hover:border-gold/50">
+                    <div class="relative h-48 sm:h-56 overflow-hidden">
+                        <img src="images/waterfall_culture.jpg" alt="Day 2 — Culture & Nature Excursion"
+                            class="w-full h-full object-cover transition duration-700 hover:scale-105">
+                        <div
+                            class="absolute top-3 left-3 bg-forest-dark/80 backdrop-blur-md text-gold text-xs font-bold px-3 py-1 rounded-full border border-gold/40">
+                            Day 2 Experience
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-gold text-forest-dark font-bold flex items-center justify-center font-serif shrink-0">
+                                    D2</div>
+                                <div>
+                                    <h4 class="font-serif font-bold text-ivory text-lg">DAY 2 — Culture, Nature &
+                                        Stories</h4>
+                                    <span class="text-xs text-gold font-medium">Dance, Waterfall Excursion & Cultural
+                                        Show</span>
+                                </div>
+                            </div>
+                            <ul class="space-y-2 text-xs text-stone-300">
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-0.5"></i>
+                                    Optional gentle morning yoga & breakfast</li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-0.5"></i>
+                                    Traditional Sri Lankan dancing lesson or activity</li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-0.5"></i>
+                                    Culture-sharing session (music, stories from home countries)</li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-0.5"></i>
+                                    Lunch at selected local venue & waterfall excursion</li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-0.5"></i>
+                                    Dinner & Sri Lankan cultural evening show</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DAY 3 -->
+                <div
+                    class="glass-dark rounded-2xl overflow-hidden border border-gold/20 flex flex-col transition hover:border-gold/50">
+                    <div class="relative h-48 sm:h-56 overflow-hidden">
+                        <img src="images/cooking_crafts.jpg" alt="Day 3 — Cooking & Crafts Workshop"
+                            class="w-full h-full object-cover transition duration-700 hover:scale-105">
+                        <div
+                            class="absolute top-3 left-3 bg-forest-dark/80 backdrop-blur-md text-gold text-xs font-bold px-3 py-1 rounded-full border border-gold/40">
+                            Day 3 Experience
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-gold text-forest-dark font-bold flex items-center justify-center font-serif shrink-0">
+                                    D3</div>
+                                <div>
+                                    <h4 class="font-serif font-bold text-ivory text-lg">DAY 3 — Traditions, Cooking &
+                                        BBQ</h4>
+                                    <span class="text-xs text-gold font-medium">Temple Visit, Cooking Lesson & Craft
+                                        Workshop</span>
+                                </div>
+                            </div>
+                            <ul class="space-y-2 text-xs text-stone-300">
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-0.5"></i>
+                                    Optional yoga & temple visit</li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-0.5"></i>
+                                    Hands-on Sri Lankan cooking lesson for lunch</li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-0.5"></i>
+                                    Coconut-shell art workshop & souvenir creation</li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-0.5"></i>
+                                    Free time to relax and enjoy property facilities</li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-0.5"></i>
+                                    BBQ dinner & celebration evening</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DAY 4 -->
+                <div
+                    class="glass-dark rounded-2xl overflow-hidden border border-gold/20 flex flex-col transition hover:border-gold/50">
+                    <div class="relative h-48 sm:h-56 overflow-hidden">
+                        <img src="images/bbq_farewell.jpg" alt="Day 4 — BBQ & Farewell"
+                            class="w-full h-full object-cover transition duration-700 hover:scale-105">
+                        <div
+                            class="absolute top-3 left-3 bg-forest-dark/80 backdrop-blur-md text-gold text-xs font-bold px-3 py-1 rounded-full border border-gold/40">
+                            Day 4 Experience
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-3 mb-4">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-gold text-forest-dark font-bold flex items-center justify-center font-serif shrink-0">
+                                    D4</div>
+                                <div>
+                                    <h4 class="font-serif font-bold text-ivory text-lg">DAY 4 — Departure & Transfers
+                                    </h4>
+                                    <span class="text-xs text-gold font-medium">Breakfast & Optional Taxi
+                                        Arrangement</span>
+                                </div>
+                            </div>
+                            <ul class="space-y-2 text-xs text-stone-300">
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-0.5"></i>
+                                    Delicious breakfast & check-out</li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-0.5"></i>
+                                    Assistance with taxi or private transfer arrangements</li>
+                                <li class="flex items-start gap-2"><i class="fa-solid fa-check text-gold mt-0.5"></i>
+                                    Flexible destinations onward across Sri Lanka</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Enquire CTA -->
+            <div class="text-center mt-12">
+                <a href="https://wa.me/94773317871?text=Hi%20Cuidado%20Casa%20by%20KC,%20I%20would%20like%20to%20enquire%20about%20The%20Sri%20Lankan%20Soul%20Journey%20Package."
+                    target="_blank"
+                    class="inline-flex items-center gap-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold px-8 py-4 rounded-full shadow-2xl transition duration-300 text-sm">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Enquire About Soul Journey via WhatsApp</span>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FACILITIES AVAILABLE FOR GUESTS (PDF #1) -->
+    <section id="facilities" class="py-20 lg:py-28 bg-ivory">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <div
+                    class="inline-flex items-center gap-2 text-forest-light text-xs font-bold tracking-widest uppercase mb-3">
+                    <span class="w-6 h-0.5 bg-gold"></span>
+                    <span>Guest Comforts</span>
+                    <span class="w-6 h-0.5 bg-gold"></span>
+                </div>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-forest-dark">
+                    Facilities Available for Guests
+                </h2>
+                <p class="mt-4 text-slateMuted text-sm">
+                    Every room is equipped with thoughtful amenities to ensure your stay is comfortable, relaxing, and
+                    memorable.
+                </p>
+            </div>
+
+            <!-- Facilities Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+
+                <div class="p-4 rounded-2xl bg-sand border border-gold/20 flex items-center gap-3">
+                    <i class="fa-solid fa-bath text-gold text-xl"></i>
+                    <span class="text-xs font-semibold text-forest-dark">Private Bathroom</span>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-sand border border-gold/20 flex items-center gap-3">
+                    <i class="fa-solid fa-shower text-gold text-xl"></i>
+                    <span class="text-xs font-semibold text-forest-dark">Shower & Hot Water</span>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-sand border border-gold/20 flex items-center gap-3">
+                    <i class="fa-solid fa-snowflake text-gold text-xl"></i>
+                    <span class="text-xs font-semibold text-forest-dark">Air Conditioning / Fan</span>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-sand border border-gold/20 flex items-center gap-3">
+                    <i class="fa-solid fa-wifi text-gold text-xl"></i>
+                    <span class="text-xs font-semibold text-forest-dark">High-Speed Wi-Fi</span>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-sand border border-gold/20 flex items-center gap-3">
+                    <i class="fa-solid fa-tv text-gold text-xl"></i>
+                    <span class="text-xs font-semibold text-forest-dark">Television</span>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-sand border border-gold/20 flex items-center gap-3">
+                    <i class="fa-solid fa-chair text-gold text-xl"></i>
+                    <span class="text-xs font-semibold text-forest-dark">Table/Desk & Chair</span>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-sand border border-gold/20 flex items-center gap-3">
+                    <i class="fa-solid fa-shirt text-gold text-xl"></i>
+                    <span class="text-xs font-semibold text-forest-dark">Cupboard / Wardrobe</span>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-sand border border-gold/20 flex items-center gap-3">
+                    <i class="fa-solid fa-mug-hot text-gold text-xl"></i>
+                    <span class="text-xs font-semibold text-forest-dark">Electric Kettle & Tea</span>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-sand border border-gold/20 flex items-center gap-3">
+                    <i class="fa-solid fa-wind text-gold text-xl"></i>
+                    <span class="text-xs font-semibold text-forest-dark">Hair Dryer</span>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-sand border border-gold/20 flex items-center gap-3">
+                    <i class="fa-solid fa-bed text-gold text-xl"></i>
+                    <span class="text-xs font-semibold text-forest-dark">Fresh Linen & Towels</span>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-sand border border-gold/20 flex items-center gap-3">
+                    <i class="fa-solid fa-soap text-gold text-xl"></i>
+                    <span class="text-xs font-semibold text-forest-dark">Basic Toiletries</span>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-sand border border-gold/20 flex items-center gap-3">
+                    <i class="fa-solid fa-mountain-sun text-gold text-xl"></i>
+                    <span class="text-xs font-semibold text-forest-dark">Balcony Views (Room 1, 3, 4)</span>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- LOCATION & CONTACT SECTION (PDF DETAILS & MAP) -->
+    <section id="contact" class="py-20 lg:py-28 bg-sand/40">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
+                <!-- Contact Details -->
+                <div>
+                    <div
+                        class="inline-flex items-center gap-2 text-forest-light text-xs font-bold tracking-widest uppercase mb-3">
+                        <span class="w-8 h-0.5 bg-gold"></span>
+                        <span>Contact Information</span>
+                    </div>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-forest-dark leading-tight">
+                        Hotel Contact Details
+                    </h2>
+                    <p class="mt-4 text-slateMuted text-sm leading-relaxed mb-8">
+                        We look forward to welcoming you to Cuidado Casa by KC in Horana. Contact us directly via phone,
+                        email, or WhatsApp.
+                    </p>
+
+                    <!-- Detail Cards -->
+                    <div class="space-y-4 mb-8">
+                        <div class="p-4 rounded-xl bg-white border border-gold/20 flex items-center gap-4 shadow-sm">
+                            <div
+                                class="w-12 h-12 rounded-full bg-forest text-gold flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase text-slateMuted font-bold block">Address</span>
+                                <span class="text-xs font-semibold text-forest-dark">No. 58, Thotupala Road, Kandana,
+                                    Horana, Sri Lanka – 12400</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-white border border-gold/20 flex items-center gap-4 shadow-sm">
+                            <div
+                                class="w-12 h-12 rounded-full bg-forest text-gold flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase text-slateMuted font-bold block">Email</span>
+                                <a href="mailto:cuidado.casakc@gmail.com"
+                                    class="text-xs font-semibold text-forest hover:text-gold transition">cuidado.casakc@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-white border border-gold/20 flex items-center gap-4 shadow-sm">
+                            <div
+                                class="w-12 h-12 rounded-full bg-forest text-gold flex items-center justify-center text-xl shrink-0">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase text-slateMuted font-bold block">Telephone</span>
+                                <span class="text-xs font-semibold text-forest-dark">077 331 7871 / 071 177 7196 / 034
+                                    225 9009</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Direct Google Maps Link -->
+                    <a href="https://maps.app.goo.gl/62vCWZSm6uvUJGncA?g_st=ic" target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-2 bg-forest text-gold font-bold px-6 py-3 rounded-xl shadow transition hover:bg-forest-light text-xs">
+                        <i class="fa-solid fa-map-location-dot"></i>
+                        <span>Open Location in Google Maps</span>
+                    </a>
+                </div>
+
+                <!-- Interactive Leaflet Map Container -->
+                <div>
+                    <div class="bg-white p-4 rounded-2xl shadow-xl border border-gold/20">
+                        <h3 class="font-serif font-bold text-forest text-xl mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-location-dot text-gold"></i>
+                            <span>Location: Horana, Sri Lanka</span>
+                        </h3>
+                        <p class="text-xs text-slateMuted mb-4">
+                            No. 58, Thotupala Road, Kandana, Horana – 12400
+                        </p>
+
+                        <!-- Leaflet Map Element -->
+                        <div id="map" class="w-full h-[400px] rounded-xl overflow-hidden border border-stone-200 z-10">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-forest-dark text-stone-300 pt-16 pb-8 border-t border-gold/20">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-gold/15">
+
+                <!-- Col 1: Brand -->
+                <div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <img src="images/logo.png" alt="Cuidado Casa by KC Logo"
+                            class="h-10 w-10 object-contain rounded-full border border-gold/40 p-0.5 bg-black/40">
+                        <div>
+                            <span class="font-serif text-lg font-bold text-ivory block leading-none">CUIDADO CASA</span>
+                            <span class="text-[9px] tracking-widest text-gold uppercase block mt-1">By KC • Horana, Sri
+                                Lanka</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-stone-400 leading-relaxed mb-6">
+                        Cuidado Casa by KC (Pvt) Ltd — Best Care Always for You.
+                    </p>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div>
+                    <h4
+                        class="font-serif font-bold text-ivory text-base mb-4 border-b border-gold/20 pb-2 inline-block">
+                        Quick Links</h4>
+                    <ul class="space-y-2.5 text-xs">
+                        <li><a href="#hero" class="hover:text-gold transition">Home</a></li>
+                        <li><a href="#about" class="hover:text-gold transition">About Us</a></li>
+                        <li><a href="#rooms" class="hover:text-gold transition">Rooms & Rates</a></li>
+                        <li><a href="#soul-journey" class="hover:text-gold transition">Soul Journey Experience</a></li>
+                        <li><a href="#facilities" class="hover:text-gold transition">Guest Facilities</a></li>
+                        <li><a href="#contact" class="hover:text-gold transition">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Contact Info -->
+                <div>
+                    <h4
+                        class="font-serif font-bold text-ivory text-base mb-4 border-b border-gold/20 pb-2 inline-block">
+                        Contact</h4>
+                    <ul class="space-y-2 text-xs text-stone-400">
+                        <li>077 331 7871</li>
+                        <li>071 177 7196</li>
+                        <li>034 225 9009</li>
+                        <li>cuidado.casakc@gmail.com</li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Address -->
+                <div>
+                    <h4
+                        class="font-serif font-bold text-ivory text-base mb-4 border-b border-gold/20 pb-2 inline-block">
+                        Address</h4>
+                    <p class="text-xs text-stone-400 leading-relaxed">
+                        Cuidado Casa by KC (Pvt) Ltd<br>
+                        No. 58, Thotupala Road, Kandana,<br>
+                        Horana, Sri Lanka – 12400
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-stone-400 gap-4">
+                <p>&copy; 2026 Cuidado Casa by KC (Pvt) Ltd. All Rights Reserved.</p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-gold">Privacy Policy</a>
+                    <a href="#" class="hover:text-gold">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a href="https://wa.me/94773317871" target="_blank" rel="noopener noreferrer"
+        class="fixed bottom-6 right-6 z-40 bg-emerald-600 text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center text-2xl hover:scale-110 transition duration-300 border-2 border-white group">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span
+            class="absolute right-16 bg-forest-dark text-ivory text-xs px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none shadow-lg border border-gold/30">
+            Chat on WhatsApp
+        </span>
+    </a>
+
+    <!-- INTERACTIVE BOOKING MODAL -->
+    <div id="bookingModal"
+        class="fixed inset-0 bg-forest-dark/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div
+            class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-gold/30 relative p-6 sm:p-8">
+            <button onclick="closeBookingModal()"
+                class="absolute top-4 right-4 text-slateMuted hover:text-forest text-xl p-2">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <div
+                    class="w-12 h-12 rounded-full bg-forest text-gold flex items-center justify-center mx-auto mb-2 text-xl">
+                    <i class="fa-solid fa-calendar-check"></i>
+                </div>
+                <h3 class="font-serif text-2xl sm:text-3xl font-bold text-forest-dark">Reserve Your Stay</h3>
+                <p class="text-xs text-slateMuted mt-1">Cuidado Casa by KC • Horana, Sri Lanka</p>
+            </div>
+
+            <form id="modalBookingForm" onsubmit="handleFinalBooking(event)" class="space-y-5">
+
+                <!-- Selected Room -->
+                <div>
+                    <label class="block text-xs font-semibold text-forest-dark mb-1">Accommodation / Package</label>
+                    <select id="modalVillaSelect" onchange="updateBookingTotal()"
+                        class="w-full px-4 py-3 rounded-xl bg-stone-50 border border-stone-200 text-sm focus:outline-none focus:border-gold font-medium">
+                        <option value="Room 1 — Deluxe King Room" data-price="18000">Room 1 — Deluxe King Room (LKR
+                            18,000 / night)</option>
+                        <option value="Room 2 — Standard Room" data-price="15000">Room 2 — Standard Room (LKR 15,000 /
+                            night)</option>
+                        <option value="Room 3 — Family Room" data-price="24000">Room 3 — Family Room (LKR 24,000 /
+                            night)</option>
+                        <option value="Room 4 — Family Room" data-price="25000">Room 4 — Family Room (LKR 25,000 /
+                            night)</option>
+                        <option value="Soul Journey Cultural Package" data-price="45000">Soul Journey Cultural Package
+                            (LKR 45,000 / person)</option>
+                    </select>
+                </div>
+
+                <!-- Dates Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-forest-dark mb-1">Check-In Date</label>
+                        <input type="date" id="modalCheckIn" onchange="updateBookingTotal()" required
+                            class="w-full px-4 py-3 rounded-xl bg-stone-50 border border-stone-200 text-sm focus:outline-none focus:border-gold">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-forest-dark mb-1">Check-Out Date</label>
+                        <input type="date" id="modalCheckOut" onchange="updateBookingTotal()" required
+                            class="w-full px-4 py-3 rounded-xl bg-stone-50 border border-stone-200 text-sm focus:outline-none focus:border-gold">
+                    </div>
+                </div>
+
+                <!-- Rate Option & Guests -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-forest-dark mb-1">Room Option</label>
+                        <select id="modalRateType" onchange="updateBookingTotal()"
+                            class="w-full px-4 py-3 rounded-xl bg-stone-50 border border-stone-200 text-sm focus:outline-none focus:border-gold">
+                            <option value="fan">Fan-Only Rate</option>
+                            <option value="ac" selected>Air-conditioned Rate (+LKR 3,000-4,000)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-forest-dark mb-1">Guests</label>
+                        <select
+                            class="w-full px-4 py-3 rounded-xl bg-stone-50 border border-stone-200 text-sm focus:outline-none focus:border-gold">
+                            <option>1 Guest</option>
+                            <option selected>2 Guests</option>
+                            <option>3 Guests</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Guest Info -->
+                <div class="border-t border-stone-100 pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-forest-dark mb-1">Guest Name</label>
+                        <input type="text" id="modalGuestName" required placeholder="Full Name"
+                            class="w-full px-4 py-2.5 rounded-xl bg-stone-50 border border-stone-200 text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-forest-dark mb-1">Contact Email / Phone</label>
+                        <input type="text" id="modalGuestEmail" required placeholder="Phone or email"
+                            class="w-full px-4 py-2.5 rounded-xl bg-stone-50 border border-stone-200 text-sm">
+                    </div>
+                </div>
+
+                <!-- Live Availability Banner -->
+                <div id="availabilityBanner"
+                    class="p-3 rounded-xl hidden text-xs font-semibold flex items-center justify-between transition-all">
+                </div>
+
+                <!-- Summary Box -->
+                <div class="p-4 rounded-xl bg-sand border border-gold/30 flex justify-between items-center">
+                    <div>
+                        <span class="text-xs text-slateMuted block">Estimated Total (<span id="stayNights">1</span>
+                            Night)</span>
+                        <span class="text-xs text-emerald-800 font-semibold">Breakfast Included</span>
+                    </div>
+                    <div class="text-right">
+                        <span id="bookingTotalDisplay" class="font-serif text-2xl font-bold text-forest">Rs
+                            18,000</span>
+                    </div>
+                </div>
+
+                <button id="modalSubmitBtn" type="submit"
+                    class="w-full bg-gold hover:bg-gold-light text-forest-dark font-bold py-3.5 rounded-xl shadow-lg transition text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+                    Confirm Reservation Request
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ROOM DETAILS MODAL -->
+    <div id="roomDetailsModal"
+        class="fixed inset-0 bg-forest-dark/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div
+            class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-gold/30 relative p-6 sm:p-8">
+            <button onclick="closeRoomDetails()"
+                class="absolute top-4 right-4 text-slateMuted hover:text-forest text-xl p-2 z-10">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div id="roomDetailsContent">
+                <!-- Populated by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast"
+        class="fixed top-5 right-5 z-50 bg-forest-dark text-gold px-6 py-3.5 rounded-xl shadow-2xl border border-gold/30 flex items-center gap-3 transform translate-y-[-150%] transition-transform duration-500">
+        <i class="fa-solid fa-circle-check text-lg"></i>
+        <span id="toastMsg" class="text-xs font-semibold">Action completed successfully!</span>
+    </div>
+
+    <!-- SCRIPTS -->
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <!-- Custom Main JavaScript -->
+    <script src="js/script.js" defer></script>
+</body>
+
+</html>
